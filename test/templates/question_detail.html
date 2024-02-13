@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {%if ques %}
+    글번호: {{ ques.id}} <br>
+    <h1> 제목 : {{ ques.subject }}</h1>
+    <div>
+    내용 : {{ ques.content }} <br>
+    게시일 : {{ ques.create_date}}
+
+    {% for ans in ques.answer_set %}
+    <hr>
+        {{ ans.id }}
+        {{ ans.content }}
+        {{ ans.create_date}}
+    {% endfor %}
+
+    </div>
+    {% else %}
+    찾으시는 글번호에 해당하는 글이 없습니다.<br>
+    {% endif %}
+    endif 바깥의 문장입니다. 
+
+    
+</body>
+</html>
