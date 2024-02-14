@@ -22,9 +22,16 @@ def create_app():
    migrate.init_app(test, db)
 
    # 블루프린트
-   from .views import main_views, board_views # views 폴더 밑의 mina_views
+   from .views import main_views, board_views, answer_views # views 폴더 밑의 mina_views
    test.register_blueprint(main_views.bp)
    test.register_blueprint(board_views.board)
+   test.register_blueprint(answer_views.answer)
+
+   # 커스텀 필터 사용
+   from test.filters import format_datetime
+   test.jinja_env.filters['date_time'] = format_datetime
+
+   return test
 
    @test.route("/")
    def hello():
