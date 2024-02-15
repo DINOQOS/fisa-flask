@@ -1,14 +1,16 @@
-from flask import Blueprint, render_template, url_for, redirect, request,g
+from flask import Blueprint, render_template, url_for, redirect, request,g, flash
 from ..models import Question, Answer, User
 from ..forms import QuestionForm, AnswerForm
 from test.models import Question
 from datetime import datetime
 from test import db
+from test.views.auth_views import login_required
 
 # 우리가 부를 이름, flask 프레임워크가 찾을 이름, 라우팅주소
 board = Blueprint('board', __name__, url_prefix="/board")
 
 @board.route("/list")   # /list   /list?page=1
+@login_required
 def _list():
     page = request.args.get('page', type=int, default=1)
     question_list = Question.query.order_by(Question.create_date.desc())
@@ -56,4 +58,47 @@ def create():
 # @board.route("/create", methods=['GET', 'POST'])
 # def create():
 #     # 라우트 주소를 전달하는 컨트롤러 역할
+
+
+
+@board.route("/modify/<int:question_id>", methods=('GET', 'POST'))
+@login_required
+def modify(question_id):
+    # 글을 가져온다
+    question = Question.query.get_or_404(question_id)
+    # 지금 글을 변경하려는 사람(로그인한사람)이 작성자인지 확인한다
+    if g.user != question.user: 
+        flash('수정권한이 없습니다')
+    # 아니면 flash로 에러메시지 전달
+    # 맞으면, post로 값이 왔으면
+    if request.method == 'POST':
+        form = QuestionForm()
+        if form.validate_on_submit():
+            form.populate_obj(question) # 화면에 원래 db에서 꺼낸 값을 변경해서 뿌림
+            db.session.commit()
+            return redirect(url_for('board.post_detail', question_id=question_id))
+            # 값을 수정하여 다시 session에 commit
+    else: # GET으로 요청이 왔을 때
+        form = QuestionForm(obj=question)
+    return render_template('question/question_form.html', form=form)
+    # 원래 화면으로 redirect
+
+    # 수정화면으로 다시 form과 함께 돌려보냄
+
+@board.route("/delete/<int:question_id>")
+@login_required
+def delete(question_id):
+    # 글을 가져옴
+    question = Question.query.get_or_404(question_id)
+    # 현재 접속한 사용자와 글의 작성자가 일치하는지 확인
+    if g.user != question.user: 
+        flash('삭제권한이 없습니다')
+    #     일치하지 않으면 -> 삭제권한이 없습니다 메시지 출력
+        return redirect(url_for('board.post_detail', question_id=question_id))
+    #     원래 글로 되돌아감
+    db.session.delete(question)
+    db.session.commit()
+    # 커밋
+    # question_list로 되돌아감 
+    return redirect(url_for('board._list'))
 

@@ -16,6 +16,7 @@
             <th>번호</th>
             <th>제목</th>
             <th>작성일시</th>
+            <th>작성자 ID</th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                 <a href="{{ url_for('board.post_detail', question_id=question.id) }}">{{ question.subject }}</a>
             </td>
             <td>{{ question.create_date | date_time }}</td>
+            <td>{{ question.user.username }}</td>
         </tr>
         {% endfor %}
         {% else %}
