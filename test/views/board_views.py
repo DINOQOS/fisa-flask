@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, url_for, redirect, request
-from ..models import Question, Answer
+from flask import Blueprint, render_template, url_for, redirect, request,g
+from ..models import Question, Answer, User
 from ..forms import QuestionForm, AnswerForm
 from test.models import Question
 from datetime import datetime
-from test import db    
+from test import db
 
 # 우리가 부를 이름, flask 프레임워크가 찾을 이름, 라우팅주소
 board = Blueprint('board', __name__, url_prefix="/board")
@@ -41,10 +41,13 @@ def create():
  
         q = Question(subject=form.subject.data, 
                      content=form.content.data, 
-                     create_date=datetime.now())                                              
+                     create_date=datetime.now(),
+                     #user_id=form.user_id.data) 
+                     user_id = g.user.id)
+
         db.session.add(q)         
         db.session.commit()
-        return redirect ( url_for( 'board.post_list')) 
+        return redirect ( url_for( 'board._list')) 
        # return render_template( url_for( 'question/question_list.html')) 
     #텅빈화면 GET 값이 있는 화면 POST으로 원래 한다.
 

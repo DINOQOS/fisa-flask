@@ -2,6 +2,7 @@
 {% block content %}
 <div class="container">
     <h5 class="my-3 border-bottom pb-2">회원 가입</h5>
+    {% include "form_errors.html" %}
     <form method="post"> <!-- action 속성이 지정되어 있지 않으면 다음 경로에 대한 지시가 없으므로 현재 주소를 post로 한번 더 호출하게 됨 -->
         {{ form.csrf_token }}
         <div class="mb-3">
@@ -28,3 +29,5 @@
     </form>
 </div>
 {% endblock %}
+
+

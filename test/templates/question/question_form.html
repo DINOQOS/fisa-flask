@@ -7,6 +7,7 @@
     <form method="post" class="my-3" action="{{ url_for('board.create') }}">
 		{# <form method="post" class="my-3" action="{{ url_for('question.create') }}"> #}     
             {% if form.errors %}
+            {{ g.user.username }} 
             <div class="alert alert-danger" role="alert">
                 {% for field, errors in form.errors.items() %}
                 <strong>{{ form[field].label }}</strong>
@@ -22,6 +23,7 @@
             {{ form.csrf_token }}
 
         {{ form.csrf_token}}
+        <!--{# {{ form.user_id.label }} #} -->
 
 		{# Form에서 작성한 라벨 #}
         {{ form.subject.label }}

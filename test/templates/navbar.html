@@ -3,13 +3,21 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container px-5">
             <a class="navbar-brand">JeongWoo Jang</a>
+            <a class="nav-link" href="#">{{ g.user.username }}</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index')}}">home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url_for('board._list')}}">QnA</a></li>
-                    <li class="nav-item"><a class="btn btn-light" href="/board/list">Login</a></li>
-                    <li class="nav-item"><a class="btn btn-light" href="/board/list">SignUp</a></li>
+                    
+                    {% if g.user %}
+                    <li class="nav-item">/<a class="btn btn-light" href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    <!-- g.user가 없을 때만 출력되도록 -->
+                    <!-- g.user가 있으면 logout버튼이 보이도록 -->
+                    {% else %}
+                    <li class="nav-item">/<a class="btn btn-light" href="{{ url_for('auth.login') }}">Login</a></li>
+                    <li class="nav-item">/<a class="btn btn-light" href="{{ url_for('auth.signup') }}">SignUp</a></li>
+                    {% endif %}
                 </ul>
 
             </div>
