@@ -10,17 +10,17 @@
             <div class="card-text" style="white-space: pre-line;">{{ question.content }}</div>
             <div class="d-flex justify-content-end">
                 <div class="badge bg-light text-dark p-2">
-                    {{ question.create_date }}
+                    {{ question.create_date | date_time }}
                 </div>
             </div>
         </div>
     </div>
     {% for answer in question.answer_set %}
     <h3> {{ answer.content }} </h3>
-    <h5> {{ answer.create_date | date_time }} </h5>
+    <h5> {{ answer.create_date }} </h5>
     {% endfor %}
     {% include 'answer/answer_form.html'%}
-    <h5 class="border-bottom my-3 py-2">{{ question.answer_set|length }}개의 답변이 있습니다.</h5>
+    <h5 class="border-bottom my-3 py-2">{{ question.answer_set | length }}개의 답변이 있습니다.</h5>
     {% for answer in question.answer_set %}
     <div class="card my-3">
         <div class="card-body">
