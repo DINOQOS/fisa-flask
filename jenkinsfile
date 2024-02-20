@@ -13,7 +13,7 @@ node {
       stage('Build') {
             sh(script: '''yes | sudo docker image prune -a''')
             sh(script: '''sudo docker build -t flask_app4 .''')
-        }
+        } 
 
       stage('Tag') {
               sh(script: '''sudo docker tag flask_app4 ${DOCKER_USER_ID}/flask_app4:${BUILD_NUMBER}''') 
