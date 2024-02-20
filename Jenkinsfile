@@ -6,7 +6,7 @@ node {
     
     { 
      stage('Pull') {
-           git branch: 'main', credentialsId: 'a7535183-3056-4665-860e-54b2689c01b2', url: 'https://github.com/dinoqos/fisa-flask/'
+           git branch: 'main', credentialsId: 'github-server', url: 'https://github.com/dinoqos/fisa-flask/'
         }
         
 
