@@ -1,6 +1,6 @@
 node { 
     withCredentials([[$class: 'UsernamePasswordMultiBinding', 
-        credentialsId: 'docker-hub', 
+        credentialsId: '9cb7334b-0412-4fee-9226-70725e50fd4c', 
         usernameVariable: 'DOCKER_USER_ID', 
         passwordVariable: 'DOCKER_USER_PASSWORD']]) 
     
@@ -36,4 +36,3 @@ stage('Deploy') {
       } 
     }
   }
-  
