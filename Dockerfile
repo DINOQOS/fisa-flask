@@ -1,7 +1,7 @@
 # base image 
 FROM tiangolo/uwsgi-nginx:python3.10
 
-LABEL maintainer="jungwoo@naver.com"
+LABEL maintainer="jungwoo4174@naver.com"
 
 # Install requirements
 COPY requirements.txt /tmp/requirements.txt
