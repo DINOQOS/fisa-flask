@@ -26,8 +26,8 @@ node {
       
 stage('Deploy') {
             sshagent(credentials: ['ec2-flask-server']) {
-                sh(script: 'ssh -o StrictHostKeyChecking=no ubuntu@43.203.54.120 "sudo docker rm -f docker-flask"')
-                sh(script: 'ssh -o StrictHostKeyChecking=no ubuntu@43.203.54.120 "sudo docker run --name docker-flask --env-file .env -e TZ=Asia/Seoul -p 80:80 -d -t \${DOCKER_USER_ID}/flask_app5:\${BUILD_NUMBER}"')
+                sh(script: 'ssh -o StrictHostKeyChecking=no ubuntu@13.124.37.77 "sudo docker rm -f docker-flask"')
+                sh(script: 'ssh -o StrictHostKeyChecking=no ubuntu@13.124.37.77 "sudo docker run --name docker-flask --env-file .env -e TZ=Asia/Seoul -p 80:80 -d -t \${DOCKER_USER_ID}/flask_app5:\${BUILD_NUMBER}"')
         }
     }
 
